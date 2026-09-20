@@ -63,7 +63,5 @@ public class Strat implements ServletContextListener {
         sce.getServletContext().setAttribute("userRepository",userRepository);
         sce.getServletContext().setAttribute("carRepository",carRepository);
         sce.getServletContext().setAttribute("requestRepository",requestRepository);
-
-
     }
 }

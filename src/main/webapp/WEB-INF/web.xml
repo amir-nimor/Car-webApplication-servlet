@@ -14,6 +14,7 @@
         <url-pattern>/logout</url-pattern>
         <url-pattern>/profile</url-pattern>
         <url-pattern>/admin</url-pattern>
+        <url-pattern>/count</url-pattern>
     </filter-mapping>
 
     <filter>
