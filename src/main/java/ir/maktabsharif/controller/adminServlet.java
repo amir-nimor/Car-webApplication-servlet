@@ -1,6 +1,5 @@
 package ir.maktabsharif.controller;
 
-import ir.maktabsharif.model.User;
 import ir.maktabsharif.repository.user.UserRepositoryImpl;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -8,12 +7,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "profile",value = "/profile")
-public class profileServlet extends HttpServlet {
+@WebServlet(name = "admin",value = "/admin")
+public class adminServlet extends HttpServlet {
 
     private UserRepositoryImpl userRepository;
 
@@ -22,17 +20,9 @@ public class profileServlet extends HttpServlet {
         this.userRepository = (UserRepositoryImpl) getServletContext().getAttribute("userRepository");
     }
 
+
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.getRequestDispatcher("page/login.jsp").forward(req,resp);
-        HttpSession session = req.getSession(false);
-
-        Integer id = (Integer) session.getAttribute("id");
-
-        User user = userRepository.read(id);
-
-        req.setAttribute("user",user);
-
-        req.getRequestDispatcher("page/profile.jsp").forward(req,resp);
+        req.getRequestDispatcher("page/admin.jsp").forward(req,resp);
     }
-
 }

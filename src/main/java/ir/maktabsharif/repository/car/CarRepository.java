@@ -1,4 +1,8 @@
 package ir.maktabsharif.repository.car;
 
-public interface CarRepository {
+import ir.maktabsharif.model.Car;
+import ir.maktabsharif.repository.BaseRepository.BaseRepository;
+
+public interface CarRepository extends BaseRepository<Car,Integer> {
+
 }

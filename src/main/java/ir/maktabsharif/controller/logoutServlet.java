@@ -1,20 +1,16 @@
 package ir.maktabsharif.controller;
 
-import ir.maktabsharif.model.User;
 import ir.maktabsharif.repository.user.UserRepositoryImpl;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet(name = "profile",value = "/profile")
-public class profileServlet extends HttpServlet {
-
+@WebServlet(name = "logout",value = "/logout")
+public class logoutServlet extends HttpServlet {
     private UserRepositoryImpl userRepository;
 
     public void init(ServletConfig config) throws ServletException {
@@ -22,17 +18,30 @@ public class profileServlet extends HttpServlet {
         this.userRepository = (UserRepositoryImpl) getServletContext().getAttribute("userRepository");
     }
 
+
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.getRequestDispatcher("page/login.jsp").forward(req,resp);
         HttpSession session = req.getSession(false);
+
+        if (session==null){
+            resp.sendError(404,"you not logging");
+            return;
+        }
 
         Integer id = (Integer) session.getAttribute("id");
 
-        User user = userRepository.read(id);
+        session.invalidate();
 
-        req.setAttribute("user",user);
+        Cookie[] cookies = req.getCookies();
 
-        req.getRequestDispatcher("page/profile.jsp").forward(req,resp);
+        for (Cookie c : cookies){
+            c.setValue("");
+            c.setMaxAge(0);
+            resp.addCookie(c);
+        }
+
+        userRepository.delete(id);
+
+        req.getRequestDispatcher("page/logoutsucsses.jsp").forward(req,resp);
     }
-
 }

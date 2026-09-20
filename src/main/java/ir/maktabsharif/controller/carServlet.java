@@ -1,6 +1,8 @@
 package ir.maktabsharif.controller;
 
+import ir.maktabsharif.model.Car;
 import ir.maktabsharif.model.User;
+import ir.maktabsharif.repository.car.CarRepositoryImpl;
 import ir.maktabsharif.repository.user.UserRepositoryImpl;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -11,28 +13,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet(name = "profile",value = "/profile")
-public class profileServlet extends HttpServlet {
-
-    private UserRepositoryImpl userRepository;
+@WebServlet(name = "car",value = "/car")
+public class carServlet extends HttpServlet {
+    private CarRepositoryImpl carRepository;
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        this.userRepository = (UserRepositoryImpl) getServletContext().getAttribute("userRepository");
+        this.carRepository = (CarRepositoryImpl) getServletContext().getAttribute("carRepository");
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.getRequestDispatcher("page/login.jsp").forward(req,resp);
-        HttpSession session = req.getSession(false);
-
-        Integer id = (Integer) session.getAttribute("id");
-
-        User user = userRepository.read(id);
-
-        req.setAttribute("user",user);
-
-        req.getRequestDispatcher("page/profile.jsp").forward(req,resp);
+        List<Car> cars = carRepository.findAll();
+        req.setAttribute("car",cars);
+        req.getRequestDispatcher("page/car.jsp").forward(req,resp);
     }
-
 }

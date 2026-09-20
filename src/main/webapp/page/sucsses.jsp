@@ -7,10 +7,23 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<head>
+    <title>Login successful</title>
+</head>
+<body style="background-color:dimgrey">
+<%
+String name =(String) request.getAttribute("name");
+String username =(String) request.getAttribute("username");
+Integer id =(Integer) request.getAttribute("id");
+%>
+<center>
+    <h1 style="background-color: cadetblue">Login Successful</h1>
+    <h1 style="background-color: cadetblue">id  = ${id}    name = ${name}    usename = ${username} </h1>
+</center>
+
+
+<a href="index.jsp">HOME</a><br>
+
+
+</body>
 </html>

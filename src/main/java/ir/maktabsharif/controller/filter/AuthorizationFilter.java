@@ -1,5 +1,6 @@
 package ir.maktabsharif.controller.filter;
 
+import ir.maktabsharif.model.Role;
 import ir.maktabsharif.model.User;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -9,8 +10,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebFilter("/profile")
-public class profileFilter implements Filter {
+@WebFilter()
+public class AuthorizationFilter implements Filter {
 
 
     @Override
@@ -22,13 +23,9 @@ public class profileFilter implements Filter {
 
         User user = (User) session.getAttribute("user");
 
-        if (session == null || user == null){
-            response.sendError(404,"not found your session");
-            return;
-        }
 
-        if (user.getUsername() == null || user.getPassword() == null){
-            response.sendError(401);
+        if (user.getRole().equals(Role.USER)){
+            response.sendError(401,"your user dont access");
             return;
         }
 

@@ -3,4 +3,28 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+
+    <filter>
+        <filter-name>profileFilter</filter-name>
+        <filter-class>ir.maktabsharif.controller.filter.profileFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>profileFilter</filter-name>
+        <url-pattern>/logout</url-pattern>
+        <url-pattern>/profile</url-pattern>
+        <url-pattern>/admin</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>authorizationFilter</filter-name>
+        <filter-class>ir.maktabsharif.controller.filter.AuthorizationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>authorizationFilter</filter-name>
+        <url-pattern>/admin</url-pattern>
+        <url-pattern>/createCar</url-pattern>
+    </filter-mapping>
+
 </web-app>
